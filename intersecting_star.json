@@ -1,0 +1,55 @@
+//
+//
+//             D(3, 8)
+//
+//
+//
+//   E(-2,5)              C(6, 5)
+//                        
+//
+//
+//       A(2,0)        B(4, 0)
+//
+//    A star with 5 points and 5 segments
+{
+  "Figure" :
+  {
+    "Description" : "A star in which line segments intersect",
+    "Points" :
+	  [
+	    {
+	      "name" : "A",
+		  "x" : 0,
+   	      "y" : 0
+		},
+	    {
+	      "name" : "B",
+		  "x" : 4,
+   	      "y" : 0
+		},
+	    {
+	      "name" : "C",
+		  "x" : 6,
+   	      "y" : 5
+		},
+        {
+          "name" : "D",
+          "x" : 3,
+          "y" : 8
+        },
+        {
+          "name" : "E",
+          "x" : -2,
+          "y" : 5
+        }
+	  ],
+  
+    "Segments" :
+      [
+	    {"A" : ["C", "D"] },
+        {"B" : ["D", "E"] },
+        {"C" : ["A", "E"] },
+        {"D" : ["E", "B"] }
+      ]
+  }
+}
