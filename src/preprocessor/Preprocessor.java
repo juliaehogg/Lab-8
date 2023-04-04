@@ -87,4 +87,10 @@ public class Preprocessor
 		_allMinimalSegments.forEach((segment) -> _segmentDatabase.put(segment, segment));
 		_nonMinimalSegments.forEach((segment) -> _segmentDatabase.put(segment, segment));
 	}
+	
+	public Set<Segment> computeImplicitBaseSegments(Set<Point> points)
+	{
+		
+		return null;
+	}
 }
