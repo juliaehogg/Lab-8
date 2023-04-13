@@ -117,4 +117,10 @@ public class Point implements Comparable<Point>
 		
 		return LexicographicOrdering(this, pointObj) == 0;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "(" + _x + ", " + _y + ")";
+	}
 }

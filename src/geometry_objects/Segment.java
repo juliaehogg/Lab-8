@@ -221,4 +221,10 @@ public class Segment extends GeometricObject
 
 		return pointsOn;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return _point1.getName() + _point2.getName();
+	}
 }
