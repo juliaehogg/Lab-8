@@ -216,6 +216,8 @@ public class Segment extends GeometricObject
 				pointsOn.add(point);
 			}
 		}
+		
+		System.out.println(pointsOn.toString());
 
 		return pointsOn;
 	}
