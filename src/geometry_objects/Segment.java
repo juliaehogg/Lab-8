@@ -71,7 +71,18 @@ public class Segment extends GeometricObject
 	 */
 	public boolean HasSubSegment(Segment candidate)
 	{
-        // TODO
+        // get candidate's point 1
+		Point one = candidate.getPoint1();
+		
+		// get candidate's point 2
+		Point two = candidate.getPoint2();
+		
+		// return true if both of candidate's points lie on this segment 
+		if (this.pointLiesOn(one) && this.pointLiesOn(two)) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -156,11 +167,23 @@ public class Segment extends GeometricObject
 	 *                    this    that
 	 *             |----------|==========|     
 	 * 
-	 * Note: the segment MAY share an endpoint
+	 * Note: the segment MAY share an end point
 	 */
 	public boolean coincideWithoutOverlap(Segment that)
 	{
-        // TODO
+        // return false if this segment is not collinear with that segment 
+		if (!isCollinearWith(that)) return false;
+		
+		// get that's point 1
+		Point point1 = that.getPoint1();
+		
+		// get that's point 2 
+		Point point2 = that.getPoint2();
+		
+		// check for overlapping 
+		if (pointLiesBetweenEndpoints(point1) || pointLiesBetweenEndpoints(point2)) return false;
+		
+		return true;
 	}
 	
 	/**
@@ -184,7 +207,15 @@ public class Segment extends GeometricObject
 	{
 		SortedSet<Point> pointsOn = new TreeSet<Point>();
 
-        // TODO
+        // check if any points lie on the segment 
+		for (Point point : points) {
+			
+			// add the point if it lies somewhere on the segment 
+			if (this.pointLiesOnSegment(point)) {
+				
+				pointsOn.add(point);
+			}
+		}
 
 		return pointsOn;
 	}
