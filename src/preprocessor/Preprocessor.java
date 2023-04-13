@@ -1,5 +1,6 @@
 package preprocessor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -55,7 +56,7 @@ public class Preprocessor
 	}
 
 	/**
-	 * Invoke the precomputation procedure.
+	 * Invoke the pre-computation procedure.
 	 */
 	public void analyze()
 	{
@@ -88,9 +89,87 @@ public class Preprocessor
 		_nonMinimalSegments.forEach((segment) -> _segmentDatabase.put(segment, segment));
 	}
 	
+	
+	/**
+	 * Find all segments that stem from an implicit point 
+	 */
 	public Set<Segment> computeImplicitBaseSegments(Set<Point> points)
 	{
+		Set<Segment> segments = new HashSet<Segment>();
 		
-		return null;
+		// loop through all given segments 
+		for (Segment segment : _givenSegments) {
+			
+			// get the implicit points on the segment and make into an array 
+			Set<Point> pointsOnSegment = segment.collectOrderedPointsOnSegment(points);
+			ArrayList<Point> pointArray = (ArrayList<Point>) pointsOnSegment;
+			
+			// add all split up segments to the list segments 
+			for (int i=0; i<pointArray.size()-1; i++) {
+				
+				Segment newSegment = new Segment(pointArray.get(i), pointArray.get(i+1));
+				segments.add(newSegment);
+			}
+		}
+		
+		return segments;
 	}
+	
+	
+	
+	/**
+	 * Returns a set of all minimal segments 
+	 */
+	public Set<Segment> identifyAllMinimalSegments(Set<Point> implicitPoints, Set<Segment> givenSegments, Set<Segment> implicitSegments) {
+		
+		Set<Segment> segments = new HashSet<Segment>();
+		
+		// go through all segments
+		for (Segment segment : givenSegments) {
+		
+		
+			// if the segment does not have implicit points, add the segment
+			if (segment.collectOrderedPointsOnSegment(implicitPoints).size() == 0) {
+				
+				segments.add(segment);
+			}
+		}
+		
+		// add all implicit segments 
+		segments.addAll(implicitSegments);
+		
+		return segments;
+	}
+	
+	
+	/**
+	 * DESCRIPTION HERE 
+	 */
+	public Set<Segment> constructAllNonMinimalSegments(Set<Segment> allMinimalSegments) {
+		
+		// make a local set of all minimal segments
+		Set<Segment> allNonMinimalSegments = new HashSet<Segment>();
+		
+		// add all possible segments 
+		
+		
+		// remove all of the minimal segments
+		allNonMinimalSegments.removeAll(allMinimalSegments);
+		
+		
+		return allNonMinimalSegments;
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
