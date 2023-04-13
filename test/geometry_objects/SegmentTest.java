@@ -84,22 +84,38 @@ class SegmentTest {
 		unOrderedPoints.add(new Point(2, 1));
 		
 		Set<Point> orderedPoints = new TreeSet<Point>();
-		unOrderedPoints.add(new Point(1,1));
-		unOrderedPoints.add(new Point(2, 1));
-		unOrderedPoints.add(new Point(3, 1));
-		unOrderedPoints.add(new Point(4, 1));
-		unOrderedPoints.add(new Point(8,1));
-		unOrderedPoints.add(new Point(14, 1));
+		orderedPoints.add(new Point(1,1));
+		orderedPoints.add(new Point(2, 1));
+		orderedPoints.add(new Point(3, 1));
+		orderedPoints.add(new Point(4, 1));
+		orderedPoints.add(new Point(8,1));
+		orderedPoints.add(new Point(14, 1));
 		
 		// all valid points
+		assertEquals(orderedPoints.size(), one.collectOrderedPointsOnSegment(unOrderedPoints).size());
+		assertTrue(orderedPoints.containsAll(one.collectOrderedPointsOnSegment(unOrderedPoints)));
 		
-		assertEquals(orderedPoints, one.collectOrderedPointsOnSegment(unOrderedPoints));
+		// some valid points some not
+		unOrderedPoints.add(new Point(4, 7));
+		unOrderedPoints.add(new Point(2, 3));
+		unOrderedPoints.add(new Point(5, 6));
 		
-		// some valid some not
+		assertEquals(orderedPoints.size(), one.collectOrderedPointsOnSegment(unOrderedPoints).size());
+		assertTrue(orderedPoints.containsAll(one.collectOrderedPointsOnSegment(unOrderedPoints)));
+		
 		
 		// all unvalid
+		Set<Point> invalid = new TreeSet<Point>();
+		invalid.add(new Point(4, 7));
+		invalid.add(new Point(2, 3));
+		invalid.add(new Point(5, 6));
+	
+		
+		assertEquals(0, one.collectOrderedPointsOnSegment(invalid).size());
 		
 		// empty input
+		invalid = new TreeSet<Point>();
+		assertEquals(0, one.collectOrderedPointsOnSegment(invalid).size());
 		
 	}
 
