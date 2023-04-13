@@ -21,22 +21,29 @@ public class ImplicitPointPreprocessor
 	public static Set<Point> compute(PointDatabase givenPoints, List<Segment> givenSegments)
 	{
 		Set<Point> implicitPoints = new LinkedHashSet<Point>();
-		// need more efficient search
-
+		
 		// search all segments
-        for (Segment s : givenSegments)
-        {
-        	for (Segment s2 : givenSegments)
-        	{
-        		// save point that intersects
-        		Point p = s.segmentIntersection(s2);
-        		// if point is null, break
-        		if (p != null) break;
+        for (int i=0; i<givenSegments.size(); i++) {
+        	
+        	// get the first segment 
+        	Segment seg = givenSegments.get(i);
+        	
+        	for (int j=i+1; j<givenSegments.size(); j++) {
+        		
+        		// get the second segment 
+            	Segment seg2 = givenSegments.get(j);
+        		
+        		// save point that intersects the segments 
+        		Point point = seg.segmentIntersection(seg2);
+        		
+        		// if there is no intersecting point, break
+        		if (point == null) break;
+        		
         		// if the given point is not a vertex of a segment, then it will return null, so add to implicitPoints
-        		if (s.other(p) == null)
+        		if (seg.other(point) == null)
         		{
-        			implicitPoints.add(p);
-        			givenPoints.put(p.getName(), p.getX(), p.getY());
+        			implicitPoints.add(point);
+        			givenPoints.put(point.getName(), point.getX(), point.getY());
         			
         			// come back and verify name :)
         		}
