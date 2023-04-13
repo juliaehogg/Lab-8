@@ -8,6 +8,12 @@ import geometry_objects.Segment;
 import geometry_objects.points.Point;
 import geometry_objects.points.PointDatabase;
 
+/**
+ * Processes implicit points from given points and segments 
+ * 
+ * @author Grace Houser
+ * @author Julia Hogg
+ */
 public class ImplicitPointPreprocessor
 {
 	/**
@@ -16,7 +22,7 @@ public class ImplicitPointPreprocessor
 	 * points and name them.
 	 * 
 	 * Algorithm:
-	 *    TODO
+	 *    Go through all segment pairs and add if there is an intersecting point  
 	 */
 	public static Set<Point> compute(PointDatabase givenPoints, List<Segment> givenSegments)
 	{
@@ -36,21 +42,18 @@ public class ImplicitPointPreprocessor
         		// save point that intersects the segments 
         		Point point = seg.segmentIntersection(seg2);
         		
-        		// if there is no intersecting point, break
-        		if (point == null) break;
-        		
-        		// if the given point is not a vertex of a segment, then it will return null, so add to implicitPoints
-        		if (seg.other(point) == null)
+        		// if there is an intersecting point, and 
+        		// if the given point is not a vertex of a segment, add to implicitPoints
+        		if (point != null && seg.other(point) == null)
         		{
         			implicitPoints.add(point);
-        			givenPoints.put(point.getName(), point.getX(), point.getY());
         			
-        			// come back and verify name :)
+        			// updating the name of the point 
+        			givenPoints.put(point.getName(), point.getX(), point.getY());
         		}
         	}
         }
         
 		return implicitPoints;
 	}
-
 }
