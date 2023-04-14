@@ -105,7 +105,7 @@ public class Preprocessor
 	 */
 	public Set<Segment> computeImplicitBaseSegments(Set<Point> implicitPoints)
 	{
-		Set<Segment> segments = new HashSet<Segment>();
+		Set<Segment> baseSegments = new HashSet<Segment>();
 		
 		Set<Point> pointDatabaseSet = _pointDatabase.getPoints();
 		
@@ -120,14 +120,14 @@ public class Preprocessor
 			// add all split up segments to the list segments 
 			for (int i=0; i<pointArray.length-1; i++) {
 				
-				segments.add(new Segment(pointArray[i], pointArray[i+1]));
+				baseSegments.add(new Segment(pointArray[i], pointArray[i+1]));
 			}
 		}
 		
 		// remove all given segments 
-		segments.removeAll(_givenSegments);
+		baseSegments.removeAll(_givenSegments);
 		
-		return segments;
+		return baseSegments;
 	}
 	
 	
@@ -137,22 +137,22 @@ public class Preprocessor
 	 */
 	public Set<Segment> identifyAllMinimalSegments(Set<Point> implicitPoints, Set<Segment> givenSegments, Set<Segment> implicitSegments) {
 		
-		Set<Segment> segments = new HashSet<Segment>();
+		Set<Segment> minSegments = new HashSet<Segment>();
 		
-		// go through all segments
+		// go through all given segments
 		for (Segment segment : givenSegments) {
 		
 			// if the segment does not have implicit points, add the segment
 			if (segment.collectOrderedPointsOnSegment(implicitPoints).size() == 0) {
 				
-				segments.add(segment);
+				minSegments.add(segment);
 			}
 		}
 		
 		// add all implicit segments 
-		segments.addAll(implicitSegments);
+		minSegments.addAll(implicitSegments);
 		
-		return segments;
+		return minSegments;
 	}
 	
 	
@@ -193,16 +193,5 @@ public class Preprocessor
 		}
 
 		return allNonMinimalSegments;
-	}
-	
+	}	
 }
-
-
-
-
-
-
-
-
-
-

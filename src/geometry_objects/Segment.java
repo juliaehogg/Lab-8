@@ -11,6 +11,13 @@ import geometry_objects.points.Point;
 import utilities.math.MathUtilities;
 import utilities.math.analytic_geometry.GeometryUtilities;
 
+/**
+ * Constructs a segment and includes functions to look 
+ * at different segment properties 
+ * 
+ * @author Grace Houser
+ * @author Julia Hogg
+ */
 public class Segment extends GeometricObject
 {
 	protected Point _point1;
@@ -71,14 +78,8 @@ public class Segment extends GeometricObject
 	 */
 	public boolean HasSubSegment(Segment candidate)
 	{
-        // get candidate's point 1
-		Point one = candidate.getPoint1();
-		
-		// get candidate's point 2
-		Point two = candidate.getPoint2();
-		
-		// return true if both of candidate's points lie on this segment 
-		if (this.pointLiesOn(one) && this.pointLiesOn(two)) {
+        // return true if both of candidate's points lie on this segment 
+		if (pointLiesOn(candidate.getPoint1()) && pointLiesOn(candidate.getPoint2())) {
 			return true;
 		}
 		
@@ -174,14 +175,8 @@ public class Segment extends GeometricObject
         // return false if this segment is not collinear with that segment 
 		if (!isCollinearWith(that)) return false;
 		
-		// get that's point 1
-		Point point1 = that.getPoint1();
-		
-		// get that's point 2 
-		Point point2 = that.getPoint2();
-		
 		// check for overlapping 
-		if (pointLiesBetweenEndpoints(point1) || pointLiesBetweenEndpoints(point2)) return false;
+		if (pointLiesBetweenEndpoints(that.getPoint1()) || pointLiesBetweenEndpoints(that.getPoint2())) return false;
 		
 		return true;
 	}
@@ -211,14 +206,12 @@ public class Segment extends GeometricObject
 		for (Point point : points) {
 			
 			// add the point if it lies somewhere on the segment 
-			if (this.pointLiesOnSegment(point)) {
+			if (pointLiesOnSegment(point)) {
 				
 				pointsOn.add(point);
 			}
 		}
 		
-		System.out.println(pointsOn.toString());
-
 		return pointsOn;
 	}
 	
