@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -14,6 +16,13 @@ import geometry_objects.points.PointDatabase;
 import preprocessor.delegates.ImplicitPointPreprocessor;
 import geometry_objects.Segment;
 
+/**
+ * Processes implicit points, implicit segments, minimal segments, and non minimal segments
+ * from a given database of points and set of segments 
+ * 
+ * @author Grace Houser
+ * @author Julia Hogg
+ */
 public class Preprocessor
 {
 	// The explicit points provided to us by the user.
@@ -90,33 +99,39 @@ public class Preprocessor
 	}
 	
 	
+	
 	/**
 	 * Find all segments that stem from an implicit point 
 	 */
-	public Set<Segment> computeImplicitBaseSegments(Set<Point> points)
+	public Set<Segment> computeImplicitBaseSegments(Set<Point> implicitPoints)
 	{
 		Set<Segment> segments = new HashSet<Segment>();
+		
+		Set<Point> pointDatabaseSet = _pointDatabase.getPoints();
 		
 		// loop through all given segments 
 		for (Segment segment : _givenSegments) {
 			
 			// get the implicit points on the segment and make into an array 
-			Set<Point> pointsOnSegment = segment.collectOrderedPointsOnSegment(points);
-			ArrayList<Point> pointArray = (ArrayList<Point>) pointsOnSegment;
+			SortedSet<Point> pointsOnSegment = segment.collectOrderedPointsOnSegment(pointDatabaseSet);
+			
+			Point[] pointArray = pointsOnSegment.toArray(new Point[pointsOnSegment.size()]);
 			
 			// add all split up segments to the list segments 
-			for (int i=0; i<pointArray.size()-1; i++) {
+			for (int i=0; i<pointArray.length-1; i++) {
 				
-				Segment newSegment = new Segment(pointArray.get(i), pointArray.get(i+1));
-				segments.add(newSegment);
+				segments.add(new Segment(pointArray[i], pointArray[i+1]));
 			}
 		}
+		
+		// remove all given segments 
+		segments.removeAll(_givenSegments);
 		
 		return segments;
 	}
 	
 	
-	
+
 	/**
 	 * Returns a set of all minimal segments 
 	 */
@@ -126,7 +141,6 @@ public class Preprocessor
 		
 		// go through all segments
 		for (Segment segment : givenSegments) {
-		
 		
 			// if the segment does not have implicit points, add the segment
 			if (segment.collectOrderedPointsOnSegment(implicitPoints).size() == 0) {
@@ -142,25 +156,44 @@ public class Preprocessor
 	}
 	
 	
+	
 	/**
-	 * DESCRIPTION HERE 
+	 * Returns a set of all non minimal segments 
 	 */
 	public Set<Segment> constructAllNonMinimalSegments(Set<Segment> allMinimalSegments) {
 		
-		// make a local set of all minimal segments
 		Set<Segment> allNonMinimalSegments = new HashSet<Segment>();
 		
-		// add all possible segments 
+		Queue<Segment> queue = new LinkedList<Segment>(allMinimalSegments);
 		
-		
-		// remove all of the minimal segments
-		allNonMinimalSegments.removeAll(allMinimalSegments);
-		
-		
+		// check a segment on the queue with allMinimalSegments until the queue is empty
+		while (!queue.isEmpty()) {
+			
+			Segment seg = queue.remove();
+			
+			// loop through all minimal segments to see if a longer segment can be made 
+			for (Segment minSeg : allMinimalSegments) {
+				
+				Point shared = seg.sharedVertex(minSeg);
+				
+				// check if segments coincide without overlap and share a vertex
+        		if (seg.coincideWithoutOverlap(minSeg) && shared != null) {
+        			
+        			Point start = seg.other(shared);
+        			Point end = minSeg.other(shared);
+        			
+        			Segment found = new Segment(start, end);
+        			
+        			// add the longer segment to allNonMinimalSegments and the queue 
+        			allNonMinimalSegments.add(found);
+        			
+        			queue.add(found);
+        		} 
+			}
+		}
+
 		return allNonMinimalSegments;
 	}
-	
-	
 	
 }
 
