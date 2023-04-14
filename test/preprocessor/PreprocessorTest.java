@@ -19,11 +19,9 @@ import preprocessor.delegates.ImplicitPointPreprocessor;
 
 class PreprocessorTest
 {
-	@Test
-	void test_implicit_crossings()
+	void test_implicit_crossings(String filename)
 	{
-		                                 // TODO: Update this file path for your particular project
-		FigureNode fig = InputFacade.extractFigure("fully_connected_irregular_polygon.json");
+		FigureNode fig = InputFacade.extractFigure(filename);
 
 		Map.Entry<PointDatabase, Set<Segment>> pair = InputFacade.toGeometryRepresentation(fig);
 
@@ -37,7 +35,6 @@ class PreprocessorTest
 		Set<Point> iPoints = ImplicitPointPreprocessor.compute(points, new ArrayList<Segment>(segments));
 		assertEquals(5, iPoints.size());
 
-		System.out.println(iPoints);
 
 		//
 		//
@@ -157,6 +154,21 @@ class PreprocessorTest
 		for (Segment computedNonMinimalSegment : computedNonMinimalSegments)
 		{
 			assertTrue(expectedNonMinimalSegments.contains(computedNonMinimalSegment));
+		}
+	}
+	
+	
+	
+	@Test
+	void test_implicit_crossings() {
+		
+		ArrayList<String> filenames = new ArrayList<String>();
+		
+		// add filenames to be tested 
+		filenames.add("fully_connected_irregular_polygon");
+		
+		for (int i=0; i<filenames.size(); i++) {
+			test_implicit_crossings(filenames.get(i) + ".json");
 		}
 	}
 }
