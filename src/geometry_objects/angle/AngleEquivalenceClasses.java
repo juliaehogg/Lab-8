@@ -1,4 +1,5 @@
 package geometry_objects.angle;
+import utilities.EquivalenceClasses;
 
 import java.util.Comparator;
 
