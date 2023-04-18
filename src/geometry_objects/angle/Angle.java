@@ -173,6 +173,87 @@ public class Angle implements Comparable<Angle>
 	@Override
 	public boolean equals(Object obj)
 	{
-		// TODO
+		// check that the given object is an Angle 
+		if (! (obj instanceof Angle)) { return false; }
+		Angle angle2 = (Angle) obj;
+		
+		// check if the angle vertex is the same and if the end points are unique 
+		if (_vertex.equals(angle2.getVertex()) && !(_ray1Endpoint.equals(_ray2Endpoint))) {
+			
+			// check if this end point equals that end point 
+			if (_ray1Endpoint.equals(angle2._ray1Endpoint) || _ray1Endpoint.equals(angle2._ray2Endpoint)) {
+				
+				if (_ray2Endpoint.equals(angle2._ray1Endpoint) || _ray1Endpoint.equals(angle2._ray2Endpoint)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
+	
+	
+	// do we need this method ??? 
+	public boolean equivalent(Object obj)
+	{
+		// check that the given object is an Angle 
+		if (! (obj instanceof Angle)) { return false; }
+		Angle angle2 = (Angle) obj;
+		
+		// check if the angle overlaps 
+		if (overlays(angle2)) { return true; }
+		
+		return false;
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
