@@ -1,7 +1,10 @@
 package geometry_objects.angle;
 
+import java.util.Comparator;
+import java.util.LinkedList;
+
 import geometry_objects.angle.comparators.AngleStructureComparator;
-import utilities.eq_classes.LinkedEquivalenceClass;
+import geometry_objects.LinkedEquivalenceClass;
 
 /**
  * This implementation requires greater knowledge of the implementing Comparator.
@@ -25,5 +28,13 @@ import utilities.eq_classes.LinkedEquivalenceClass;
  */
 public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 {
-    // TODO
+	private Angle canonical;
+	private Comparator<Angle> comparator;
+	private LinkedList rest; 
+	
+    public AngleLinkedEquivalenceClass(Comparator<Angle> comp)
+    {
+    	super();
+    	this.comparator = comp;
+    }
 }
