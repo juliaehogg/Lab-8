@@ -1,4 +1,4 @@
-package geometry_objects;
+package utilities;
 import java.util.Comparator;
 import java.util.LinkedList;
 

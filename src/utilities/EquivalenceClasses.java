@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import geometry_objects.LinkedEquivalenceClass;
-
 public class EquivalenceClasses <T> {
 	
 	protected Comparator<T> 						_comparator;

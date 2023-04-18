@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 
 import geometry_objects.angle.comparators.AngleStructureComparator;
-import geometry_objects.LinkedEquivalenceClass;
+import utilities.LinkedEquivalenceClass;
 
 /**
  * This implementation requires greater knowledge of the implementing Comparator.
