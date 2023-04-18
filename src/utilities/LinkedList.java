@@ -6,7 +6,7 @@ import utilities.LinkedList.Node;
 public class LinkedList<T>
 {
 	public Node 	_head;
-	public Node	_tail;
+	public Node		_tail;
 	protected int 	_size;
 
 	public final class Node

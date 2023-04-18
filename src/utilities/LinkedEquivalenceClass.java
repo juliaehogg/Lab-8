@@ -47,7 +47,7 @@ public class LinkedEquivalenceClass <T> {
         }
         //check if element belongs to the canonical
         if (comparator.compare(canonical, element) == 0) {
-        	rest.addToBack(element);
+        	rest.add(element);
         	return true;
         }
         return false;
@@ -75,29 +75,16 @@ public class LinkedEquivalenceClass <T> {
         return comparator.compare(canonical, target) == 0;
     }
 
-    public boolean remove(T target) {
-        if (canonical == null) {
-            return false;
-        }
-        //check if the target is the canonical 
-        if (canonical.equals(target)) {
-        	//call for removeCanonical method to remove the canonical
-            removeCanonical();
-            return true;
-        }
-        //remove it from the rest of the body
-        return rest.remove(target);
-    }
+    // Removes a value from _rest
+ 	public boolean remove(T target) {
+ 		return rest.remove(target);
+ 	}
 
     public boolean removeCanonical() {
-    	//while canonical is not null
-    	if (canonical != null) {
-    		//set the canonical equal to first element of the LinkedList
-    		canonical = rest._head._next._data;
-    		return true;
-    	}
-    	return false;
-    }
+ 		if (canonical.equals(null)) return false;
+ 		canonical = null;
+ 		return true;
+ 	}
     
 
     public boolean demoteAndSetCanonical(T element) {
