@@ -42,18 +42,21 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
     public boolean add(Angle a)
     {
     	// todo
+    	return false;
     }
     
     @Override
     public boolean contains(Angle a)
     {
     	// todo
+    	return false;
     }
     
     @Override
     public boolean belongs(Angle a)
     {
     	// todo
+    	return false; 
     }
     
     

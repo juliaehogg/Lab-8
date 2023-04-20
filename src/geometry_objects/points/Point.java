@@ -124,8 +124,12 @@ public class Point implements Comparable<Point>
 		return "(" + _x + ", " + _y + ")";
 	}
 
-	public static int distance(Point b, Point c) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static double distance(Point b, Point c) {
+		
+		// find the euclidan distance 
+		double num = Math.pow((b.getX() - c.getX()), 2);
+		double num2 = Math.pow((b.getY() - c.getY()), 2);
+		
+		return Math.sqrt(num + num2);
 	}
 }
