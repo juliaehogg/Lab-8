@@ -37,4 +37,26 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
     	super();
     	this.comparator = comp;
     }
+    
+    @Override
+    public boolean add(Angle a)
+    {
+    	// todo
+    }
+    
+    @Override
+    public boolean contains(Angle a)
+    {
+    	// todo
+    }
+    
+    @Override
+    public boolean belongs(Angle a)
+    {
+    	// todo
+    }
+    
+    
+    
+    
 }
