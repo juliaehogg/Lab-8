@@ -123,4 +123,9 @@ public class Point implements Comparable<Point>
 	{
 		return "(" + _x + ", " + _y + ")";
 	}
+
+	public static int distance(Point b, Point c) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -25,6 +25,7 @@ public class AngleIdentifier
 	{
 		if (_angles != null) return _angles;
 
+		// need to add comparator 
 		_angles = new AngleEquivalenceClasses();
 
 		computeAngles();

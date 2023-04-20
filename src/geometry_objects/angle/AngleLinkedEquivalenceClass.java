@@ -3,7 +3,7 @@ package geometry_objects.angle;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-import geometry_objects.angle.comparators.AngleStructureComparator;
+//import geometry_objects.angle.comparators.AngleStructureComparator;
 import utilities.LinkedEquivalenceClass;
 
 /**
@@ -34,7 +34,7 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 	
     public AngleLinkedEquivalenceClass(Comparator<Angle> comp)
     {
-    	super();
-    	this.comparator = comp;
+    	super(comp);
+    	comparator = comp;
     }
 }

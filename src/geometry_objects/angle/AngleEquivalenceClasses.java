@@ -3,8 +3,8 @@ import utilities.EquivalenceClasses;
 
 import java.util.Comparator;
 
-import geometry_objects.angle.comparators.AngleStructureComparator;
-import utilities.eq_classes.EquivalenceClasses;
+//import geometry_objects.angle.comparators.AngleStructureComparator;
+//import utilities.eq_classes.EquivalenceClasses;
 
 /**
  * Given the figure below:
@@ -27,6 +27,6 @@ public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 {
 	public AngleEquivalenceClasses(Comparator <Angle> comp)
 	{
-		super();
+		super(comp);
 	}
 }
