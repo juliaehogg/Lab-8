@@ -49,5 +49,6 @@ public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 	        return _classes.add(newClass);
 	     } 
 	     return _classes.get(index).add(a);
+	     
 	}
 }
