@@ -98,6 +98,8 @@ public class Angle implements Comparable<Angle>
 
 		return Math.acos(cosAngle);
 	}
+	
+	
 
 
 	/**
@@ -201,8 +203,10 @@ public class Angle implements Comparable<Angle>
 		Angle angle2 = (Angle) obj;
 		
 		// check if the angle overlaps 
-		if (overlays(angle2)) { return true; }
+		if (!overlays(angle2)) { return false; }
 		
+		if(this.getVertex().compareTo(angle2.getVertex()) == 0) return true;
+				
 		return false;
 	}
 	
@@ -210,50 +214,3 @@ public class Angle implements Comparable<Angle>
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

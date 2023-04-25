@@ -1,5 +1,6 @@
 package preprocessor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 import exceptions.FactException;
 import geometry_objects.Segment;
 import geometry_objects.Triangle;
+import geometry_objects.angle.Angle;
 
 public class TriangleIdentifier
 {
@@ -22,7 +24,7 @@ public class TriangleIdentifier
 
 	/*
 	 * Compute the figure triangles on the fly when requested;
-	 * memoize results for subsequent calls.
+	 * memorize results for subsequent calls.
 	 */
 	public Set<Triangle> getTriangles()
 	{
@@ -37,6 +39,34 @@ public class TriangleIdentifier
 
 	private void computeTriangles()
 	{
-		// TODO
+		ArrayList<Segment> segments = new ArrayList<Segment>(_segments.keySet());
+		
+		for(int i = 0; i < _segments.size() - 1; i++)
+		{
+			Segment seg1 = segments.get(i);
+			for(int j = 1; j < _segments.size(); j++)
+			{
+				Segment seg2 = segments.get(j);
+				
+				for (int k = 2; k < segments.size(); k++)
+				{
+					Segment seg3 = segments.get(k);
+					List<Segment> segs = new ArrayList<Segment>();
+					segs.add(seg1);
+					segs.add(seg2);
+					segs.add(seg3);
+				try
+				{
+					_triangles.add(new Triangle(segs));
+				}
+				catch(Exception e)
+				{
+				
+				}
+				}
+			}
+				
+		}
+		
 	}
 }

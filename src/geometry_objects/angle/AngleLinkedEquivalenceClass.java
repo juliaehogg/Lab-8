@@ -41,25 +41,50 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
     @Override
     public boolean add(Angle a)
     {
-    	// todo
+    	if (contains(a)) return false;
+    	
+    	// check if canonical exists, if not, angle is the new canonical
+    	if (canonical == null)
+    	{
+    		canonical = a;
+    		return true;
+    	}
+    	
+    	// check if element belongs to the canonical
+    	 if (comparator.compare(canonical, a) == 0)
+    	 {
+         	rest.add(a);
+         	return true;
+    	 }
+
     	return false;
     }
     
     @Override
     public boolean contains(Angle a)
     {
-    	// todo
-    	return false;
+    	//canonical does not exist
+        if (canonical == null) {
+            return false;
+        }
+        //if it exist, check if canonical is comparator to target
+        if (comparator.compare(canonical, a) == 0) {
+            return true;
+        }
+        //check if target is contained in the rest
+        return rest.contains(a);
+    
     }
     
     @Override
     public boolean belongs(Angle a)
     {
-    	// todo
-    	return false; 
+    	if (canonical == null) {
+            return false;
+        }
+        //canonical compared to the target
+        return comparator.compare(canonical, a) == 0;
     }
     
-    
-    
-    
+
 }
