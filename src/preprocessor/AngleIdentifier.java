@@ -50,7 +50,8 @@ public class AngleIdentifier
 				Segment seg2 = segments.get(j);
 				try
 				{
-					_angles.add(new Angle(seg1, seg2));
+					Angle newAngle = new Angle(seg1, seg2);
+					_angles.add(newAngle);
 				}
 				catch(Exception e)
 				{

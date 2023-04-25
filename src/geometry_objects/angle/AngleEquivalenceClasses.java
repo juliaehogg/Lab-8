@@ -28,27 +28,40 @@ import java.util.List;
  */
 public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 {
-	protected Comparator<Angle>		_comparator;
-	protected List <LinkedEquivalenceClass<Angle>>		_classes;
-	
-	
+
 	public AngleEquivalenceClasses(Comparator <Angle> comp)
 	{
 		super(comp);
-		_classes = new ArrayList <LinkedEquivalenceClass<Angle>> ();
 	}
-	
-	
+
+
 	@Override
 	public boolean add (Angle a)
-	{
+	{		
+		// check if null
+		if (a == null) return false;
+
+		// get index of angle 
 		int index = indexOfClass(a);
+		
+
 		if (index == -1) {
-			LinkedEquivalenceClass<Angle> newClass = new LinkedEquivalenceClass<Angle>(_comparator);
+
+			// add angle to new class 
+			AngleLinkedEquivalenceClass newClass = new AngleLinkedEquivalenceClass(_comparator);
 			newClass.add(a);
-	        return _classes.add(newClass);
-	     } 
-	     return _classes.get(index).add(a);
-	     
+
+			System.out.println(a);
+
+			// PROBLEM IS BELOW - NOT ADDING TO 
+			//return _classes.add(newClass);
+			_classes.add(newClass);
+
+			System.out.println("classes: " + _classes);
+			return true;
+		} 
+
+		// add angle to existing class 
+		return _classes.get(index).add(a);
 	}
 }

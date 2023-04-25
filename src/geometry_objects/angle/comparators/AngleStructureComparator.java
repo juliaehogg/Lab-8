@@ -60,11 +60,17 @@ public class AngleStructureComparator implements Comparator<Angle>
 	@Override
 	public int compare(Angle left, Angle right)
 	{
-        // check that the vertex is the same 
-		if (!left.equals(right)) { return STRUCTURALLY_INCOMPARABLE; }
+		// check for null
+		if (left == null || right == null) return STRUCTURALLY_INCOMPARABLE;
 		
-		// check if the left and right angles are the same 
-		if (left.equals(right)) { return 0; }
+        // check that the vertex is the same 
+		if (!left.getVertex().equals(right.getVertex())) return STRUCTURALLY_INCOMPARABLE;
+		
+		// check if the left and right angles measurements are the same 
+		if (!MathUtilities.doubleEquals(left.getMeasure(), right.getMeasure())) return STRUCTURALLY_INCOMPARABLE;
+		
+		// check if left and right angles are the same 
+		if (left.equals(right)) return 0;
 		
 		// get Segments from left and right angles
 		Segment leftSeg1 = left.getRay1();
@@ -72,8 +78,9 @@ public class AngleStructureComparator implements Comparator<Angle>
 		Segment rightSeg1 = right.getRay1();
 		Segment rightSeg2 = right.getRay2();
 		
-		// check if the left segments are greater than or equal to the right segments 
-		if (leftSeg1.length() >= rightSeg1.length() && leftSeg2.length() >= rightSeg2.length() && leftSeg1.equals(rightSeg1) && leftSeg1.equals(rightSeg1)) {
+		// check if the left angle is greater than or equal to the right angle 
+		if (leftSeg1.length() >= rightSeg1.length() && leftSeg2.length() >= rightSeg2.length() &&
+				leftSeg1.equals(rightSeg1) && leftSeg1.equals(rightSeg1)) {
 			return 1;
 		}
 		

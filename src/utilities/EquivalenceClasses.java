@@ -57,7 +57,7 @@ public class EquivalenceClasses <T> {
 	{
 		for (int i = 0; i < _classes.size(); i++)
 		{
-			if (_classes.get(i).equals(element)) return i;
+			if (_classes.get(i).belongs(element)) return i;
 		}
 		return -1;
 	}

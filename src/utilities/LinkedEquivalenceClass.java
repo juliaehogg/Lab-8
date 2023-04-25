@@ -4,50 +4,56 @@ import java.util.LinkedList;
 
 public class LinkedEquivalenceClass <T> {
 
-    private T canonical;
-    private Comparator<T> comparator;
-    private LinkedList<T> rest;
+	protected T _canonical;
+	protected Comparator<T> _comparator;
+	protected LinkedList<T> _rest;
     
     public LinkedEquivalenceClass(Comparator<T> comparator) {
-        this.comparator = comparator;
-        rest = new LinkedList<>();
+        _canonical = null;
+    	_comparator = comparator;
+        _rest = new LinkedList<T>();
     }
     
     public T canonical() {
-        return canonical;
+        return _canonical;
     }
 
     public boolean isEmpty() {
     	//true if canonical and rest are both empty
-        return canonical == null && rest.isEmpty();
+        return _canonical == null && _rest.isEmpty();
     }
 
     public void clear() {
     	//clear both null and rest
-        canonical = null;
-        rest.clear();
+        _canonical = null;
+        _rest.clear();
     }
 
     public void clearNonCanonical() {
     	//clear the rest
-        this.rest.clear();
+        _rest.clear();
     }
 
     public int size() {
     	//size = rest size plus the canonical element
-        return rest.size() + 1;
+        return _rest.size() + 1;
     }
 
+
     public boolean add(T element) {
+    	
+    	// check if element is null
+    	if (element == null) return false;
+    	
     	//check if canonical exist
-        if (canonical == null) {
+        if (_canonical == null) {
         	//if it does not then element is the new canonical
-            canonical = element;
+        	_canonical = element;
             return true;
         }
         //check if element belongs to the canonical
-        if (comparator.compare(canonical, element) == 0) {
-        	rest.add(element);
+        if (_comparator.compare(_canonical, element) == 0) {
+        	_rest.add(element);
         	return true;
         }
         return false;
@@ -56,33 +62,33 @@ public class LinkedEquivalenceClass <T> {
 
     public boolean contains(T target) {
     	//canonical does not exist
-        if (canonical == null) {
+        if (_canonical == null) {
             return false;
         }
         //if it exist, check if canonical is comparator to target
-        if (comparator.compare(canonical, target) == 0) {
+        if (_comparator.compare(_canonical, target) == 0) {
             return true;
         }
         //check if target is contained in the rest
-        return rest.contains(target);
+        return _rest.contains(target);
     }
 
     public boolean belongs(T target) {
-        if (canonical == null) {
+        if (_canonical == null) {
             return false;
         }
         //canonical compared to the target
-        return comparator.compare(canonical, target) == 0;
+        return _comparator.compare(_canonical, target) == 0;
     }
 
     // Removes a value from _rest
  	public boolean remove(T target) {
- 		return rest.remove(target);
+ 		return _rest.remove(target);
  	}
 
     public boolean removeCanonical() {
- 		if (canonical.equals(null)) return false;
- 		canonical = null;
+ 		if (_canonical.equals(null)) return false;
+ 		_canonical = null;
  		return true;
  	}
     
@@ -90,9 +96,9 @@ public class LinkedEquivalenceClass <T> {
     public boolean demoteAndSetCanonical(T element) {
         if (contains(element)) {
         	//save the previous canonical
-            T prev_Can = canonical;
+            T prev_Can = _canonical;
           //set the new element equal to canonical
-            canonical = element;
+            _canonical = element;
             //add the removed canonical to the rest
             add(prev_Can);
 
@@ -102,6 +108,6 @@ public class LinkedEquivalenceClass <T> {
     }
 
     public String toString() {
-    	return canonical + " | " + rest.toString();
+    	return _canonical + " | " + _rest.toString();
     }
 }

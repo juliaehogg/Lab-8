@@ -1,12 +1,10 @@
 /**
- * Write a succinct, meaningful description of the class here. You should avoid wordiness    
- * and redundancy. If necessary, additional paragraphs should be preceded by <p>,
- * the html tag for a new paragraph.
+ * Constructs an angle made from two rays. 
+ * Stores the angle's vertex coordinate and angle measure. 
  *
- * <p>Bugs: (a list of bugs and / or other problems)
- *
- * @author <your name>
- * @date   <date of completion>
+ * @author Grace Houser
+ * @author Julia Hogg
+ * @date   25 April 2023 
  */
 
 package geometry_objects.angle;
@@ -175,40 +173,40 @@ public class Angle implements Comparable<Angle>
 	@Override
 	public boolean equals(Object obj)
 	{
+		// check for null
+		if (obj == null) return false;
+		
 		// check that the given object is an Angle 
 		if (! (obj instanceof Angle)) { return false; }
 		Angle angle2 = (Angle) obj;
+
+		// check if the angle vertex is the same 
+		if (!_vertex.equals(angle2.getVertex())) return false;
+
+
+		// check if this end point equals that end point 
+		if (_ray1Endpoint.equals(angle2._ray1Endpoint) && _ray2Endpoint.equals(angle2._ray2Endpoint)) return true;
 		
-		// check if the angle vertex is the same and if the end points are unique 
-		if (_vertex.equals(angle2.getVertex()) && !(_ray1Endpoint.equals(_ray2Endpoint))) {
-			
-			// check if this end point equals that end point 
-			if (_ray1Endpoint.equals(angle2._ray1Endpoint) || _ray1Endpoint.equals(angle2._ray2Endpoint)) {
-				
-				if (_ray2Endpoint.equals(angle2._ray1Endpoint) || _ray1Endpoint.equals(angle2._ray2Endpoint)) {
-					return true;
-				}
-			}
-		}
-		
+		if (_ray1Endpoint.equals(angle2._ray2Endpoint) && _ray2Endpoint.equals(angle2._ray1Endpoint)) return true;
+
 		return false;
 	}
 	
 	
 	// do we need this method ??? 
-	public boolean equivalent(Object obj)
-	{
-		// check that the given object is an Angle 
-		if (! (obj instanceof Angle)) { return false; }
-		Angle angle2 = (Angle) obj;
-		
-		// check if the angle overlaps 
-		if (!overlays(angle2)) { return false; }
-		
-		if(this.getVertex().compareTo(angle2.getVertex()) == 0) return true;
-				
-		return false;
-	}
+//	public boolean equivalent(Object obj)
+//	{
+//		// check that the given object is an Angle 
+//		if (! (obj instanceof Angle)) { return false; }
+//		Angle angle2 = (Angle) obj;
+//		
+//		// check if the angle overlaps 
+//		if (!overlays(angle2)) { return false; }
+//		
+//		if(this.getVertex().compareTo(angle2.getVertex()) == 0) return true;
+//				
+//		return false;
+//	}
 	
 	
 	

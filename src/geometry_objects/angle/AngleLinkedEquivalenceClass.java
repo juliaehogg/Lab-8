@@ -3,6 +3,7 @@ package geometry_objects.angle;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import geometry_objects.angle.comparators.AngleStructureComparator;
 //import geometry_objects.angle.comparators.AngleStructureComparator;
 import utilities.LinkedEquivalenceClass;
 
@@ -28,62 +29,70 @@ import utilities.LinkedEquivalenceClass;
  */
 public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 {
-	private Angle canonical;
-	private Comparator<Angle> comparator;
-	private LinkedList rest; 
-	
-    public AngleLinkedEquivalenceClass(Comparator<Angle> comp)
-    {
-    	super(comp);
-    	comparator = comp;
-    }
-    
-    @Override
-    public boolean add(Angle a)
-    {
-    	if (contains(a)) return false;
-    	
-    	// check if canonical exists, if not, angle is the new canonical
-    	if (canonical == null)
-    	{
-    		canonical = a;
-    		return true;
-    	}
-    	
-    	// check if element belongs to the canonical
-    	 if (comparator.compare(canonical, a) == 0)
-    	 {
-         	rest.add(a);
-         	return true;
-    	 }
+	public AngleLinkedEquivalenceClass(Comparator<Angle> comp)
+	{
+		super(comp);
+	}
 
-    	return false;
-    }
-    
-    @Override
+	@Override
+	public boolean add(Angle a)
+	{
+		// check if the angle is null 
+		if (a == null) return false;
+
+		// check if canonical exists, if not, angle is the new canonical
+		if (_canonical == null)
+		{
+			_canonical = a;
+			return true;
+		}
+
+		// check if the angle belongs in the class
+		if (!belongs(a)) return false;
+
+		// check if the angle already exists in the class
+		if (contains(a)) return false;
+		
+		// check if it's the smallest angle - has the smallest rays 
+		if (_canonical.compareTo(a) >= 0) { 
+			
+			super.demoteAndSetCanonical(a); 
+			return true;
+		}
+
+		// add angle to rest 
+		_rest.add(a);
+		return true;
+	}
+
+	@Override
     public boolean contains(Angle a)
     {
+		// check if the angle is null
+		if (a == null) return false;
+		
+		
+		
     	//canonical does not exist
-        if (canonical == null) {
+        if (_canonical == null) {
             return false;
         }
         //if it exist, check if canonical is comparator to target
-        if (comparator.compare(canonical, a) == 0) {
+        if (_comparator.compare(_canonical, a) == 0) {
             return true;
         }
         //check if target is contained in the rest
-        return rest.contains(a);
+        return _rest.contains(a);
     
     }
     
     @Override
     public boolean belongs(Angle a)
     {
-    	if (canonical == null) {
-            return false;
-        }
+    	if (_canonical == null) return false; 
+    	
         //canonical compared to the target
-        return comparator.compare(canonical, a) == 0;
+        return _comparator.compare(_canonical, a) != AngleStructureComparator.STRUCTURALLY_INCOMPARABLE;
     }
     
 
