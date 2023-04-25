@@ -37,6 +37,9 @@ public class AngleLinkedEquivalenceClass extends LinkedEquivalenceClass<Angle>
 	@Override
 	public boolean add(Angle a)
 	{
+		
+		// NEXT STEP - BREAKPOINT AND SEE WHERE _REST ADDING FAILS 
+		
 		// check if the angle is null 
 		if (a == null) return false;
 

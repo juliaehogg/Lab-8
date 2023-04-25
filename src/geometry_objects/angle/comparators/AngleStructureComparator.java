@@ -1,12 +1,9 @@
 /**
- * Write a succinct, meaningful description of the class here. You should avoid wordiness    
- * and redundancy. If necessary, additional paragraphs should be preceded by <p>,
- * the html tag for a new paragraph.
+ * Comparator for two Angles. 
  *
- * <p>Bugs: (a list of bugs and / or other problems)
- *
- * @author <your name>
- * @date   <date of completion>
+ * @author Grace Houser
+ * @author Julia Hogg
+ * @date   25 April 2023 
  */
 
 package geometry_objects.angle.comparators;
@@ -63,14 +60,15 @@ public class AngleStructureComparator implements Comparator<Angle>
 		// check for null
 		if (left == null || right == null) return STRUCTURALLY_INCOMPARABLE;
 		
-        // check that the vertex is the same 
-		if (!left.getVertex().equals(right.getVertex())) return STRUCTURALLY_INCOMPARABLE;
+		// check if left and right overlay each other
+		if (!left.overlays(right)) return STRUCTURALLY_INCOMPARABLE;
 		
-		// check if the left and right angles measurements are the same 
+		// check if the left and right angle measurements are the same 
 		if (!MathUtilities.doubleEquals(left.getMeasure(), right.getMeasure())) return STRUCTURALLY_INCOMPARABLE;
-		
+			
 		// check if left and right angles are the same 
 		if (left.equals(right)) return 0;
+	
 		
 		// get Segments from left and right angles
 		Segment leftSeg1 = left.getRay1();
@@ -79,12 +77,16 @@ public class AngleStructureComparator implements Comparator<Angle>
 		Segment rightSeg2 = right.getRay2();
 		
 		// check if the left angle is greater than or equal to the right angle 
-		if (leftSeg1.length() >= rightSeg1.length() && leftSeg2.length() >= rightSeg2.length() &&
-				leftSeg1.equals(rightSeg1) && leftSeg1.equals(rightSeg1)) {
+		if (leftSeg1.length() >= rightSeg1.length() && leftSeg2.length() >= rightSeg2.length()) {
 			return 1;
 		}
 		
-		return -1;
+		// check if the left angle is less than or equal to the right angle 
+		if (leftSeg1.length() <= rightSeg1.length() && leftSeg2.length() <= rightSeg2.length()) {
+			return -1;
+		}
+		
+		return 0;
 	}
 }
 

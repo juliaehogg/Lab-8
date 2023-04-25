@@ -19,23 +19,20 @@ public class LinkedEquivalenceClass <T> {
     }
 
     public boolean isEmpty() {
-    	//true if canonical and rest are both empty
         return _canonical == null && _rest.isEmpty();
     }
 
     public void clear() {
-    	//clear both null and rest
         _canonical = null;
         _rest.clear();
     }
 
     public void clearNonCanonical() {
-    	//clear the rest
         _rest.clear();
     }
 
     public int size() {
-    	//size = rest size plus the canonical element
+    	// _rest size plus the canonical element
         return _rest.size() + 1;
     }
 
@@ -45,13 +42,15 @@ public class LinkedEquivalenceClass <T> {
     	// check if element is null
     	if (element == null) return false;
     	
-    	//check if canonical exist
+    	// check if canonical exist
         if (_canonical == null) {
+        	
         	//if it does not then element is the new canonical
         	_canonical = element;
             return true;
         }
-        //check if element belongs to the canonical
+        
+        // check if element belongs to the canonical
         if (_comparator.compare(_canonical, element) == 0) {
         	_rest.add(element);
         	return true;
@@ -81,30 +80,29 @@ public class LinkedEquivalenceClass <T> {
         return _comparator.compare(_canonical, target) == 0;
     }
 
-    // Removes a value from _rest
  	public boolean remove(T target) {
  		return _rest.remove(target);
  	}
 
     public boolean removeCanonical() {
- 		if (_canonical.equals(null)) return false;
- 		_canonical = null;
- 		return true;
- 	}
-    
+    	if (_canonical.equals(null)) return false;
+    	_canonical = null;
+    	return true;
+    }
+
 
     public boolean demoteAndSetCanonical(T element) {
-        if (contains(element)) {
-        	//save the previous canonical
-            T prev_Can = _canonical;
-          //set the new element equal to canonical
-            _canonical = element;
-            //add the removed canonical to the rest
-            add(prev_Can);
+    	if (contains(element)) {
+    		//save the previous canonical
+    		T prev_Can = _canonical;
+    		//set the new element equal to canonical
+    		_canonical = element;
+    		//add the removed canonical to the rest
+    		add(prev_Can);
 
-            return true;
-        }
-        return false;
+    		return true;
+    	}
+    	return false;
     }
 
     public String toString() {

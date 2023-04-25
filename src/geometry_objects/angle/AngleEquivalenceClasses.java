@@ -43,25 +43,31 @@ public class AngleEquivalenceClasses extends EquivalenceClasses<Angle>
 
 		// get index of angle 
 		int index = indexOfClass(a);
-		
 
-		if (index == -1) {
-
-			// add angle to new class 
-			AngleLinkedEquivalenceClass newClass = new AngleLinkedEquivalenceClass(_comparator);
-			newClass.add(a);
-
-			System.out.println(a);
-
-			// PROBLEM IS BELOW - NOT ADDING TO 
-			//return _classes.add(newClass);
-			_classes.add(newClass);
-
+		// if it belongs somewhere, add it 
+		if (index != -1) { 
+			
+			System.out.println("added to rest: " + a);
 			System.out.println("classes: " + _classes);
-			return true;
-		} 
+			
+			return _classes.get(index).add(a); 
+		
+		
+		}
 
-		// add angle to existing class 
-		return _classes.get(index).add(a);
+
+		// add angle to new class 
+		AngleLinkedEquivalenceClass newClass = new AngleLinkedEquivalenceClass(_comparator);
+		newClass.add(a);
+
+		System.out.println(a);
+
+		// PROBLEM IS BELOW - NOT ADDING TO 
+		//return _classes.add(newClass);
+		_classes.add(newClass);
+
+		System.out.println("classes: " + _classes);
+		return true;
+
 	}
 }

@@ -26,13 +26,14 @@ public class AngleIdentifier
 	 */
 	public AngleEquivalenceClasses getAngles()
 	{
+		// return _angles if we already have them 
 		if (_angles != null) return _angles;
 
-		// need to add comparator in argument 
-		
+		// comparator 
 		AngleStructureComparator comp = new AngleStructureComparator(); 
 		_angles = new AngleEquivalenceClasses(comp);
 
+		// compute angles and add to _angles 
 		computeAngles();
 
 		return _angles;
@@ -40,21 +41,24 @@ public class AngleIdentifier
 
 	private void computeAngles()
 	{
+		// make an array list of segments 
 		ArrayList<Segment> segments = new ArrayList<Segment>(_segments.keySet());
 		
-		for(int i = 0; i < _segments.size() - 1; i++)
-		{
+		// iterate through all segment pairs 
+		for (int i = 0; i < _segments.size() - 1; i++) {
+			
 			Segment seg1 = segments.get(i);
-			for(int j = i + 1; j < _segments.size(); j++)
-			{
+			
+			for (int j = i + 1; j < _segments.size(); j++) {
+				
 				Segment seg2 = segments.get(j);
-				try
-				{
+				
+				// try adding new angle to _angles 
+				try {
 					Angle newAngle = new Angle(seg1, seg2);
 					_angles.add(newAngle);
 				}
-				catch(Exception e)
-				{
+				catch(Exception e) {
 					
 				}
 			}
